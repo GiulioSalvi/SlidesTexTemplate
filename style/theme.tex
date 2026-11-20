@@ -21,13 +21,17 @@
 \setbeamercolor{item projected}{fg=white,bg=SlidesAccent}
 \setbeamercolor{block title}{fg=SlidesPrimary,bg=SlidesTitleBackground}
 \setbeamercolor{block body}{fg=SlidesText,bg=SlidesTitleBackground!45!white}
-\setbeamerfont{frametitle}{size=\LARGE,series=\bfseries}
-\setbeamerfont{framesubtitle}{size=\small,series=\mdseries}
-\setbeamerfont{title}{size={\fontsize{27}{30}\selectfont},series=\bfseries}
-\setbeamerfont{subtitle}{size=\large,series=\mdseries}
-\setbeamerfont{author}{size=\large}
-\setbeamerfont{institute}{size=\normalsize}
-\setbeamerfont{footline}{size=\scriptsize}
+\setbeamerfont{normal text}{family=\sffamily,series=\mdseries}
+\setbeamerfont{structure}{family=\SlidesHeadingFont,series=\mdseries}
+\setbeamerfont{frametitle}{family=\SlidesHeadingFont,size=\LARGE,series=\mdseries}
+\setbeamerfont{framesubtitle}{family=\sffamily,size=\small,series=\mdseries}
+\setbeamerfont{title}{family=\SlidesHeadingFont,size={\fontsize{27}{30}\selectfont},series=\mdseries}
+\setbeamerfont{subtitle}{family=\sffamily,size=\large,series=\mdseries}
+\setbeamerfont{deck label}{family=\SlidesHeadingFont,size=\large,series=\mdseries}
+\setbeamerfont{block title}{family=\SlidesHeadingFont,series=\mdseries}
+\setbeamerfont{author}{family=\sffamily,size=\large,series=\mdseries}
+\setbeamerfont{institute}{family=\sffamily,size=\normalsize,series=\mdseries}
+\setbeamerfont{footline}{family=\sffamily,size=\scriptsize,series=\mdseries}
 \setbeamertemplate{itemize items}[square]
 \setbeamertemplate{enumerate items}[square]
 \setbeamertemplate{blocks}[default]
@@ -67,7 +71,7 @@
 % subtitle and rule flow together, preserving spacing when the title wraps.
 \setbeamertemplate{title page}{%
   \begin{tikzpicture}[remember picture,overlay]
-    \node[anchor=north west,inner sep=0,text=SlidesAccent,font=\bfseries\large]
+    \node[anchor=north west,inner sep=0,text=SlidesAccent,font=\usebeamerfont{deck label}]
       at ([xshift=0.05\paperwidth,yshift=-0.04\paperheight]current page.north west)
       {\SlidesDeck};
     \node[anchor=north east,inner sep=0]

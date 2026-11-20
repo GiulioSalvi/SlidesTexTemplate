@@ -3,7 +3,6 @@
 % SPDX-License-Identifier: GPL-3.0-or-later
 % Pandoc's captionless long tables use a dummy counter in recent writers.
 \newcounter{none}
-\AtBeginEnvironment{longtable}{\sffamily}
 \NewDocumentCommand{\pandocbounded}{m}{%
   \begin{adjustbox}{max totalsize={\linewidth}{0.68\paperheight}}%
     #1%

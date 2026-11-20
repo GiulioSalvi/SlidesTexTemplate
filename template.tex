@@ -13,28 +13,43 @@
 \RequireLuaTeX
 \usefonttheme{professionalfonts}
 \usepackage{fontspec}
+% Use the project's text face everywhere, including Beamer's font families.
+\newcommand{\SlidesSetTextFont}[2][]{%
+  \setmainfont{#2}[#1]%
+  \setsansfont{#2}[#1]%
+}
 $if(mainfont)$
-\setsansfont{$mainfont$}[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]
+\SlidesSetTextFont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
 $else$
-\setsansfont{FiraSans-Regular.otf}[
+\SlidesSetTextFont[
+  BoldFont=FiraSans-Medium.otf,
+  ItalicFont=FiraSans-LightItalic.otf,
+  BoldItalicFont=FiraSans-MediumItalic.otf
+]{FiraSans-Light.otf}
+$endif$
+\renewcommand{\familydefault}{\sfdefault}
+% Headings have an independent family, so Medium is selected as its upright
+% face rather than being replaced by Beamer's default bold series.
+$if(headingfont)$
+\newfontfamily\SlidesHeadingFont{$headingfont$}[$for(headingfontoptions)$$headingfontoptions$$sep$,$endfor$]
+$else$
+\newfontfamily\SlidesHeadingFont{FiraSans-Medium.otf}[
   BoldFont=FiraSans-Bold.otf,
-  ItalicFont=FiraSans-Italic.otf,
+  ItalicFont=FiraSans-MediumItalic.otf,
   BoldItalicFont=FiraSans-BoldItalic.otf
 ]
 $endif$
-\renewcommand{\familydefault}{\sfdefault}
 $if(monofont)$
 \setmonofont{$monofont$}[$for(monofontoptions)$$monofontoptions$$sep$,$endfor$]
 $else$
-\setmonofont{FiraMono-Regular.otf}[
-  BoldFont=FiraMono-Bold.otf,
-  ItalicFont=FiraMono-Oblique.otf,
-  BoldItalicFont=FiraMono-BoldOblique.otf,
-  Scale=MatchLowercase
+\setmonofont{lmmono10-regular.otf}[
+  BoldFont=lmmonolt10-bold.otf,
+  ItalicFont=lmmono10-italic.otf,
+  BoldItalicFont=lmmonolt10-boldoblique.otf
 ]
 $endif$
 \usepackage{unicode-math}
-\setmathfont{$if(mathfont)$$mathfont$$else$latinmodern-math.otf$endif$}
+\setmathfont{$if(mathfont)$$mathfont$$else$latinmodern-math.otf$endif$}[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]
 \usepackage[main=$if(babel-lang)$$babel-lang$$else$english$endif$]{babel}
 \usepackage{microtype}
 \usepackage{amsmath,booktabs,longtable,array,calc}

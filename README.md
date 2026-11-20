@@ -12,8 +12,10 @@ no university logo or institutional endorsement is bundled.
 
 Install Pandoc 3.1 or later, LuaLaTeX and the TeX Live packages listed in
 `requirements.txt`. That file contains `tlmgr` package names, not Python
-dependencies. TeX Live resolves their dependencies. The fonts are Fira Sans,
-Fira Mono and Latin Modern Math, supplied by TeX Live rather than host fonts.
+dependencies. TeX Live resolves their dependencies. The default fonts are
+Fira Sans Light for body text and subtitles, Fira Sans Medium for titles
+and headings, Latin Modern Mono for code and Latin Modern Math for formulas.
+The fonts are supplied by TeX Live rather than host fonts.
 
 With this repository installed as `templates/slides` in TexTemplates:
 
@@ -103,10 +105,43 @@ it. Palette values are quoted six-digit HTML colours without `#`:
 | `slides-muted` | Team, organisation and secondary text |
 
 Put these values in project `metadata.yml`; there is no need to edit the
-template. Standard font variables `mainfont`, `monofont` and `mathfont` can
-override its fonts. `mainfont` controls the sans-serif presentation face.
-Project `variables.aspectratio` and `variables.fontsize` can override the
-template defaults in `defaults.yaml`.
+template. Project `variables.aspectratio` and `variables.fontsize` can override
+the template defaults in `defaults.yaml`.
+
+## Choose fonts per project
+
+Set the font families and weights directly in project `metadata.yml`:
+
+```yaml
+mainfont: FiraSans-Light.otf
+mainfontoptions:
+  - BoldFont=FiraSans-Medium.otf
+  - ItalicFont=FiraSans-LightItalic.otf
+  - BoldItalicFont=FiraSans-MediumItalic.otf
+headingfont: FiraSans-Medium.otf
+monofont: Latin Modern Mono
+mathfont: Latin Modern Math
+```
+
+`mainfont` controls body text, cover and frame subtitles, author information,
+tables and the footer. `headingfont` controls the cover title, deck label,
+frame titles and block headings. Headings use the upright face of that family:
+Medium is not silently promoted to Bold by Beamer. Body emphasis uses Medium.
+
+For Fira Sans Book instead of Light, change `mainfont` to
+`FiraSans-Book.otf` and its `ItalicFont` option to `FiraSans-BookItalic.otf`.
+The heading face can remain Medium. To change the overall typeface, set both
+`mainfont` and `headingfont`. Omitting either field uses its default above.
+
+`monofont` controls source code and inline code; `mathfont` controls formulas.
+The optional lists `mainfontoptions`, `headingfontoptions`, `monofontoptions`
+and `mathfontoptions` pass options to `fontspec` or `unicode-math`. Font changes
+do not require modifying the template or its style files.
+
+Any chosen font must be installed in the build environment, including the
+Dev Container when building there. The defaults are covered by `fira`, `lm`
+and `lm-math` in `requirements.txt`. An installed family can also be selected
+by name. Keep code and math fonts separate when choosing a new text face.
 
 ## Progressive reveals and numbering
 

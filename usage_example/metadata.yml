@@ -9,7 +9,15 @@ institute: Example research group
 lang: en
 logo: assets/mark.pdf
 
-# Six-digit HTML colours, without the # prefix. Quote every colour value.
+mainfont: FiraSans-Light.otf
+mainfontoptions:
+  - BoldFont=FiraSans-Medium.otf
+  - ItalicFont=FiraSans-LightItalic.otf
+  - BoldItalicFont=FiraSans-MediumItalic.otf
+headingfont: FiraSans-Medium.otf
+monofont: Latin Modern Mono
+mathfont: Latin Modern Math
+
 slides-primary: '7A0026'
 slides-accent: 'C70039'
 slides-heading: '14243F'
@@ -17,6 +25,5 @@ slides-title-background: 'FAE8EF'
 slides-text: '202633'
 slides-muted: '6B7C92'
 
-# Native PDF transitions, used on the first page of each frame only.
 transition: fade
 transition-duration: 0.5
