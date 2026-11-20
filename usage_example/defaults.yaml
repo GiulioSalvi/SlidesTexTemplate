@@ -1,0 +1,6 @@
+from: markdown+raw_tex
+input-file: '${.}/slides.md'
+metadata-file: '${.}/metadata.yml'
+output-file: '${.}/build/slides.pdf'
+resource-path:
+  - '${.}'

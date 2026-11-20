@@ -1,0 +1,22 @@
+deck: LECTURE 1
+title: Linear classifiers, feature maps, and multi-layer perceptrons
+subtitle: Decision boundaries, nonlinear features, and expressivity
+shorttitle: Linear classifiers and MLPs
+author:
+  - Giulio Salvi
+team: Machine Learning
+institute: Example research group
+lang: en
+logo: assets/mark.pdf
+
+# Six-digit HTML colours, without the # prefix. Quote every colour value.
+slides-primary: '7A0026'
+slides-accent: 'C70039'
+slides-heading: '14243F'
+slides-title-background: 'FAE8EF'
+slides-text: '202633'
+slides-muted: '6B7C92'
+
+# Native PDF transitions, used on the first page of each frame only.
+transition: fade
+transition-duration: 0.5

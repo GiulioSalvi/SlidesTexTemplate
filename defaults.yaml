@@ -1,0 +1,8 @@
+standalone: true
+to: beamer
+pdf-engine: lualatex
+slide-level: 2
+template: '${.}/template.tex'
+variables:
+  aspectratio: 169
+  fontsize: 11pt

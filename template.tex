@@ -1,0 +1,121 @@
+% SlidesTexTemplate
+% Copyright (C) 2026 Giulio Salvi
+%
+% This is free software: you can redistribute it and/or modify it under the
+% GNU General Public License, version 3 or (at your option) any later version.
+% It is distributed WITHOUT ANY WARRANTY; see the LICENSE file for details.
+% SPDX-FileCopyrightText: 2026 Giulio Salvi
+% SPDX-License-Identifier: GPL-3.0-or-later
+
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\documentclass[$if(fontsize)$$fontsize$$else$11pt$endif$,hyperref={pdfpagelabels=false},aspectratio=$if(aspectratio)$$aspectratio$$else$169$endif$$if(handout)$,handout$endif$$for(classoption)$,$classoption$$endfor$]{beamer}
+\usepackage{iftex}
+\RequireLuaTeX
+\usefonttheme{professionalfonts}
+\usepackage{fontspec}
+$if(mainfont)$
+\setsansfont{$mainfont$}[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]
+$else$
+\setsansfont{FiraSans-Regular.otf}[
+  BoldFont=FiraSans-Bold.otf,
+  ItalicFont=FiraSans-Italic.otf,
+  BoldItalicFont=FiraSans-BoldItalic.otf
+]
+$endif$
+\renewcommand{\familydefault}{\sfdefault}
+$if(monofont)$
+\setmonofont{$monofont$}[$for(monofontoptions)$$monofontoptions$$sep$,$endfor$]
+$else$
+\setmonofont{FiraMono-Regular.otf}[
+  BoldFont=FiraMono-Bold.otf,
+  ItalicFont=FiraMono-Oblique.otf,
+  BoldItalicFont=FiraMono-BoldOblique.otf,
+  Scale=MatchLowercase
+]
+$endif$
+\usepackage{unicode-math}
+\setmathfont{$if(mathfont)$$mathfont$$else$latinmodern-math.otf$endif$}
+\usepackage[main=$if(babel-lang)$$babel-lang$$else$english$endif$]{babel}
+\usepackage{microtype}
+\usepackage{amsmath,booktabs,longtable,array,calc}
+\usepackage{graphicx,adjustbox,tikz}
+\usepackage{fancyvrb,framed}
+
+% All style paths are relative to this template's non-recursive TEXINPUTS root.
+\input{style/colors.tex}
+$if(slides-primary)$
+\definecolor{SlidesPrimary}{HTML}{$slides-primary$}
+$endif$
+$if(slides-accent)$
+\definecolor{SlidesAccent}{HTML}{$slides-accent$}
+$endif$
+$if(slides-heading)$
+\definecolor{SlidesHeading}{HTML}{$slides-heading$}
+$endif$
+$if(slides-title-background)$
+\definecolor{SlidesTitleBackground}{HTML}{$slides-title-background$}
+$endif$
+$if(slides-text)$
+\definecolor{SlidesText}{HTML}{$slides-text$}
+$endif$
+$if(slides-muted)$
+\definecolor{SlidesMuted}{HTML}{$slides-muted$}
+$endif$
+
+\newcommand{\SlidesDeck}{$if(deck)$$deck$$endif$}
+\newcommand{\SlidesTeam}{$if(team)$$team$$endif$}
+\newcommand{\SlidesCoverLogo}{$if(logo)$\includegraphics[width=0.075\paperwidth,height=0.12\paperheight,keepaspectratio]{$logo$}$endif$}
+\newcommand{\SlidesFooter}{$if(footer-text)$$footer-text$$else$\insertshorttitle$endif$}
+\newcommand{\SlidesDefaultTransition}{$if(transition)$$transition$$else$fade$endif$}
+\newcommand{\SlidesTransitionDuration}{$if(transition-duration)$$transition-duration$$else$0.5$endif$}
+\input{style/theme.tex}
+\input{style/pandoc-support.tex}
+$if(csl-refs)$
+\input{style/citations.tex}
+$endif$
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+$if(strikeout)$
+\usepackage{luacolor}
+\usepackage[soul]{lua-ul}
+$endif$
+% PDF page labels stay physical: repeated overlays are counted as PDF pages.
+\hypersetup{
+  unicode=true,
+  colorlinks=true,
+  linkcolor=SlidesHeading,
+  urlcolor=SlidesAccent,
+  citecolor=SlidesPrimary,
+  pdftitle={$title-meta$},
+  pdfauthor={$author-meta$}
+}
+$for(header-includes)$
+$header-includes$
+$endfor$
+\title[$if(shorttitle)$$shorttitle$$else$$title$$endif$]{$title$}
+\subtitle{$if(subtitle)$$subtitle$$endif$}
+\author{$for(author)$$author$$sep$ \and $endfor$}
+\institute{$for(institute)$$institute$$sep$ \and $endfor$}
+\date{$if(date)$$date$$endif$}
+
+\begin{document}
+$if(title)$
+% The cover is frame 1. Plain suppresses its regular header and footer only.
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+$endif$
+$for(include-before)$
+$include-before$
+$endfor$
+$if(toc)$
+\begin{frame}{$if(toc-title)$$toc-title$$else$Contents$endif$}
+  \tableofcontents
+\end{frame}
+$endif$
+$body$
+$for(include-after)$
+$include-after$
+$endfor$
+\end{document}

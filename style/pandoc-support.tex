@@ -1,0 +1,15 @@
+% SlidesTexTemplate - Copyright (C) 2026 Giulio Salvi
+% GNU GPL version 3 or any later version; see LICENSE.
+% SPDX-License-Identifier: GPL-3.0-or-later
+% Pandoc's captionless long tables use a dummy counter in recent writers.
+\newcounter{none}
+\AtBeginEnvironment{longtable}{\sffamily}
+\NewDocumentCommand{\pandocbounded}{m}{%
+  \begin{adjustbox}{max totalsize={\linewidth}{0.68\paperheight}}%
+    #1%
+  \end{adjustbox}%
+}
+\ProvideDocumentCommand{\tightlist}{}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}%
+}
+\ProvideDocumentCommand{\passthrough}{m}{#1}

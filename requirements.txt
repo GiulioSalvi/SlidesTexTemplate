@@ -1,0 +1,35 @@
+# SlidesTexTemplate - TeX Live / tlmgr package names.
+# Dependencies are resolved by TeX Live. LuaLaTeX is the supported engine.
+# Fira Sans / Fira Mono and Latin Modern Math are installed as TeX fonts;
+# no system-font installation is needed in a container.
+# graphicx -> graphics; array, calc, longtable -> tools; tikz -> pgf.
+adjustbox
+amsmath
+babel
+babel-english
+babel-italian
+beamer
+booktabs
+etoolbox
+fancyvrb
+fira
+fontspec
+framed
+graphics
+hyperref
+iftex
+latex
+latex-bin
+latexmk
+lm
+lm-math
+lua-ul
+luacolor
+lualatex-math
+luaotfload
+microtype
+pgf
+tools
+translator
+unicode-math
+xcolor

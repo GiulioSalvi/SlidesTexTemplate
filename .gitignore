@@ -1,0 +1,6 @@
+/build/
+/dist/
+/usage_example/build/
+__pycache__/
+*.pyc
+.DS_Store

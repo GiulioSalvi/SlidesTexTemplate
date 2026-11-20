@@ -1,0 +1,114 @@
+% SlidesTexTemplate
+% Copyright (C) 2026 Giulio Salvi
+% GNU GPL version 3 or any later version; without any warranty. See LICENSE.
+% SPDX-FileCopyrightText: 2026 Giulio Salvi
+% SPDX-License-Identifier: GPL-3.0-or-later
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{sidebar right}{}
+\setbeamersize{text margin left=0.05\paperwidth,text margin right=0.05\paperwidth}
+\setbeamercolor{normal text}{fg=SlidesText,bg=white}
+\setbeamercolor{structure}{fg=SlidesAccent}
+\setbeamercolor{frametitle}{fg=SlidesHeading,bg=SlidesTitleBackground}
+\setbeamercolor{framesubtitle}{fg=SlidesMuted}
+\setbeamercolor{title}{fg=SlidesPrimary}
+\setbeamercolor{subtitle}{fg=SlidesHeading}
+\setbeamercolor{author}{fg=SlidesText}
+\setbeamercolor{institute}{fg=SlidesMuted}
+\setbeamercolor{footline left}{fg=white,bg=SlidesPrimary}
+\setbeamercolor{footline right}{fg=white,bg=SlidesAccent}
+\setbeamercolor{item projected}{fg=white,bg=SlidesAccent}
+\setbeamercolor{block title}{fg=SlidesPrimary,bg=SlidesTitleBackground}
+\setbeamercolor{block body}{fg=SlidesText,bg=SlidesTitleBackground!45!white}
+\setbeamerfont{frametitle}{size=\LARGE,series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\small,series=\mdseries}
+\setbeamerfont{title}{size={\fontsize{27}{30}\selectfont},series=\bfseries}
+\setbeamerfont{subtitle}{size=\large,series=\mdseries}
+\setbeamerfont{author}{size=\large}
+\setbeamerfont{institute}{size=\normalsize}
+\setbeamerfont{footline}{size=\scriptsize}
+\setbeamertemplate{itemize items}[square]
+\setbeamertemplate{enumerate items}[square]
+\setbeamertemplate{blocks}[default]
+\setbeamertemplate{caption}[numbered]
+
+% Native frame titles grow vertically when a title wraps to a second line.
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip
+  \begin{beamercolorbox}[
+    wd=\paperwidth,leftskip=0.05\paperwidth,rightskip=0.05\paperwidth
+  ]{frametitle}
+    \vskip0.10cm
+    \usebeamerfont{frametitle}\strut\insertframetitle\strut\par
+    \ifx\insertframesubtitle\empty\else
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}%
+       \insertframesubtitle\par}%
+    \fi
+    \vskip0.12cm
+  \end{beamercolorbox}%
+}
+\setbeamertemplate{footline}{%
+  \leavevmode\hbox{%
+    \begin{beamercolorbox}[
+      wd=0.82\paperwidth,ht=0.40cm,dp=0.16cm,leftskip=0.05\paperwidth
+    ]{footline left}%
+      \usebeamerfont{footline}\strut\begin{NoHyper}\SlidesFooter\end{NoHyper}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[
+      wd=0.18\paperwidth,ht=0.40cm,dp=0.16cm,center
+    ]{footline right}%
+      \usebeamerfont{footline}\strut\insertframenumber\,/\,\inserttotalframenumber
+    \end{beamercolorbox}%
+  }%
+}
+
+% A plain cover with independent top and bottom identity areas. Title,
+% subtitle and rule flow together, preserving spacing when the title wraps.
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west,inner sep=0,text=SlidesAccent,font=\bfseries\large]
+      at ([xshift=0.05\paperwidth,yshift=-0.04\paperheight]current page.north west)
+      {\SlidesDeck};
+    \node[anchor=north east,inner sep=0]
+      at ([xshift=-0.05\paperwidth,yshift=-0.03\paperheight]current page.north east)
+      {\SlidesCoverLogo};
+    \node[anchor=north west,inner sep=0,text width=0.90\paperwidth,align=left]
+      at ([xshift=0.05\paperwidth,yshift=-0.17\paperheight]current page.north west)
+      {%
+        {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}%
+        \vskip0.18cm
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+        \vskip0.55cm
+        {\color{SlidesAccent}\rule{\linewidth}{1pt}}%
+      };
+    \node[anchor=south west,inner sep=0,text width=0.90\paperwidth,align=left]
+      at ([xshift=0.05\paperwidth,yshift=0.16\paperheight]current page.south west)
+      {%
+        {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}%
+        \ifdefempty{\SlidesTeam}{}{%
+          {\usebeamerfont{institute}\color{SlidesMuted}\SlidesTeam\par}}%
+        {\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}%
+        {\footnotesize\color{SlidesMuted}\insertdate\par}%
+      };
+  \end{tikzpicture}%
+}
+
+% Apply the deck default before each overlay's body. Native Beamer transition
+% commands in that body can override it. Only the first overlay transitions
+% by default; progressive reveals remain immediate PDF page changes.
+\NewDocumentCommand{\SlideTransition}{D<>{1} O{} m}{%
+  \edef\SlidesTransitionName{#3}%
+  \ifdefstring{\SlidesTransitionName}{none}{\transreplace<#1>}{%
+    \ifcsname trans\SlidesTransitionName\endcsname
+      \csname trans\SlidesTransitionName\endcsname<#1>[%
+        duration=\SlidesTransitionDuration,#2]%
+    \else
+      \PackageError{slides}{Unknown transition: #3}%
+        {Use none, fade, dissolve, wipe, push, cover or another Beamer transition.}%
+    \fi
+  }%
+}
+\AddToHook{env/beamer@framepauses/begin}{%
+  \SlideTransition{\SlidesDefaultTransition}%
+}
