@@ -105,6 +105,23 @@ $endif$
   pdftitle={$title-meta$},
   pdfauthor={$author-meta$}
 }
+% Reapply Babel after Beamer/translator have initialized their caption names.
+\AddToHook{begindocument/end}{%
+  \expandafter\selectlanguage\expandafter{\languagename}%
+}
+\newcommand{\SlidesSectionPageLabel}{$section-page-label$}
+\ifdefstring{\SlidesSectionPageLabel}{false}{%
+\setbeamertemplate{section page}{%
+  \begingroup\centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+  \endgroup
+}
+}{}
+$if(section-pages)$
+\AtBeginSection[]{\begin{frame}\sectionpage\end{frame}}
+$endif$
 $for(header-includes)$
 $header-includes$
 $endfor$

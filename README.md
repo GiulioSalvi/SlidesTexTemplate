@@ -235,3 +235,15 @@ commit credentials or add a personal token to the template environment hook.
 
 Primary documentation: [Pandoc slides](https://pandoc.org/MANUAL.html#producing-slide-shows-with-pandoc)
 and the [Beamer manual](https://ctan.org/pkg/beamer).
+
+## Section cards and shared boxes
+
+```yaml
+section-pages: true
+section-page-label: false
+lang: it
+```
+
+`section-pages` inserts an opening frame at each section. Set `section-page-label` to false to show only the section title, including on manually inserted `\sectionpage` frames. Its default appearance includes Beamer's native section label. The `lang` metadata also selects localized figure/table captions.
+
+The parent library automatically loads `components/boxes` when the source uses `\TransparentBox[image]{Title}{Body}` or a semantic environment such as `definitionbox`. These components have their own dependency list, separate from the selectable presentation template. In Beamer, semantic statements use section-based counters.
